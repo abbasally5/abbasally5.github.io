@@ -1,0 +1,43 @@
+<html>
+	<head>
+
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-sanitize.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="quote.js"></script>
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"	type="text/css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+
+		<title>MAD Night 3</title>
+	</head>
+	<body ng-app="MADNight">
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<h1>MAD Night 3</h1>
+				</div>
+			</div>					
+		</div>
+		<div class="row">
+			<div class="content col-md-6 col-md-offset-3">
+				<div class="typing panel-primary" ng-controller="typeCtrl">
+					<h3 class="panel-heading">Typing Game</h3>
+					<div class="panel-body" ng-bind-html="highlightText()">
+					
+					</div>
+						<div class="input-group">
+							<input type="text" id="text" class="form-control" 
+							placeholder="Type Here" ng-model="typed">
+							<button class="btn btn-primary" ng-click="nextQuote()">Next Quote!</button>
+						</div>
+					</div>
+				</div> 
+
+				<div class="stats panel-primary">
+
+				</div>			
+			</div>
+		</div>
+	</body>
+</html>
