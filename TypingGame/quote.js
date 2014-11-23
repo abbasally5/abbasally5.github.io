@@ -27,7 +27,7 @@ app.controller('typeCtrl', ['$scope',
 		"that I shall say good night till it be morrow",
 		"A fool thinks himself to be wise, but a wise man knows himself to be a fool",
 		"And yet, by heaven, I think my love as rare " +
-		"As any she belied with false compare",
+		"a bs any she belied with false compare",
 		"He likes to type on his mechanical keyboard",
 		"I like typing!",
 		"The rabbit likes to jump over the cabbages and head straight fo the carrot patch",
