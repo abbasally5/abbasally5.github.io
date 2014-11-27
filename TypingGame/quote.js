@@ -1,13 +1,9 @@
 var app = angular.module('MADNight', ['ngSanitize']);
-/*
-app.factory('quotes', [function() {
-	var arr = [
-		"The quick brown fox jumped over the lazy dog",
-		"asdfasdfadsfadsf"
-		];
-	return arr;
+
+app.factory('typed', [function() {
+	return '';
 }]);
-*/
+
 app.controller('typeCtrl', ['$scope', 
 	function($scope) {
 
@@ -27,10 +23,10 @@ app.controller('typeCtrl', ['$scope',
 		"that I shall say good night till it be morrow",
 		"A fool thinks himself to be wise, but a wise man knows himself to be a fool",
 		"And yet, by heaven, I think my love as rare " +
-		"a bs any she belied with false compare",
+		"as any she belied with false compare",
 		"He likes to type on his mechanical keyboard",
 		"I like typing!",
-		"The rabbit likes to jump over the cabbages and head straight fo the carrot patch",
+		"The rabbit likes to jump over the cabbages and head straight for the carrot patch",
 		"Putting chocolate sauce on top of ice cream is good",
 		"I go to UT, the best University in the world!",
 		"My favorite food is blank",
