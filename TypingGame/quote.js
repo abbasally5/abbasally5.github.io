@@ -1,4 +1,4 @@
-var app = angular.module('MADNight', ['ngSanitize']);
+var app = angular.module('MADNight', ['ngSanitize', 'chartjs']);
 
 app.factory('typed', [function() {
 	return '';
@@ -43,6 +43,76 @@ app.controller('typeCtrl', ['$scope',
 //
 		var currentQuote = $scope.randomQuote();
 		var visited = [];
+		var countPresses = 0;
+
+		$scope.accuracy = function() {
+			if (getCount() > 0) {
+				var percent = stringCorrect($scope.typed, currentQuote).length/getCount();
+				//console.log(percent);
+				return percent.toFixed(2) * 100;
+			}
+			else
+				return getCount();			
+		};
+
+		$scope.LPM = function() {
+			//console.log(getCount());
+			if (getCount() > 0) {
+				var letters = stringCorrect($scope.typed, currentQuote).length;
+				var minutes = getMin();
+				//console.log(letters + " " + minutes);
+				if (minutes == 0 || letters == 0) return 0 ;
+				return (letters/minutes).toFixed(0);
+			}
+			else return 0;
+		}
+
+		$scope.WPM = function() {
+			if (getCount() > 0) {
+				var words = stringCorrect($scope.typed, currentQuote).length/5;
+				var minutes = getMin();
+				if (minutes == 0 || words == 0) return  0 ;
+				return (words/minutes).toFixed(0) ;
+			}
+			else
+				return 0 ;
+		}
+
+		$scope.netWPM = function() {
+			if (getCount() > 0) {
+				var minutes = getMin();				
+				if (minutes == 0 ) 
+					return 0;
+				else {
+					var errors = (stringIncorrect($scope.typed, currentQuote).length/minutes).toFixed(0);
+					console.log(errors);
+					console.log($scope.WPM());
+					dataArr.push($scope.WPM() - errors);
+					timeArr.push(minutes);
+					console.log("d " + dataArr);
+					console.log("t " + timeArr)
+					return ($scope.WPM() - errors);
+				}
+				
+			}
+			else
+				return 0 ;
+		}
+
+		$scope.lineChartData = {
+        	labels: [
+        		timeArr[0], 
+        		timeArr[1], 
+        		timeArr[2]
+      		],
+      		datasets: [
+        		{
+          			data: [0, 5, 10, 15, 20, 25]
+        		}
+      		]
+    	};
+    
+    	$scope.activeData = $scope.lineChartData;		
 
 		$scope.nextQuote = function() {
 			//console.log("clicked");			
@@ -51,6 +121,7 @@ app.controller('typeCtrl', ['$scope',
 			if (!(!$scope.typed || $scope.typed === null))
 				document.getElementById('text').value = '';
 			$scope.typed = '';
+			setCount(0);
 			currentQuote = $scope.randomQuote();
 			if (contains(visited, currentQuote))
 				$scope.nextQuote();
@@ -65,6 +136,9 @@ app.controller('typeCtrl', ['$scope',
 				htmlString = "<span>" + quote + "</span>";
 			}
 			else {
+				//document.getElementById('stat1').innerText = countPresses;
+				//console.log($scope.typed.length);
+				//console.log("asdf " + $scope.typed.split(''));
 				var correct = stringCorrect($scope.typed, quote);
 				var incorrect = stringIncorrect($scope.typed, quote);
 				if (correct.length == quote.length) {
@@ -86,12 +160,16 @@ app.controller('typeCtrl', ['$scope',
 			//console.log("html " + htmlString);
 			return htmlString;
 		}
+
+		
 	}]);
 
 function stringCorrect(typed, text) {
 	var correct = "";
+	if (typed === null) return correct;
 	//var letTyped = typed.split("");
 	//var textArr = text.split("");
+	//console.log(typed.length);
 	for(i = 0; i < typed.length; i++) {
 		if (typed.charAt(i) == text.charAt(i)) {
 			correct += typed.charAt(i) + "";
@@ -113,4 +191,36 @@ function contains(arr, value) {
 			return true;
 	}
 	return false;
+}
+
+//use for Accuracy and WPM
+var counter = 0;
+
+var startTime = 0;
+var currTime = 0;
+
+var dataArr = [];
+var timeArr = [];
+
+function getCount() {
+	return counter;
+}
+
+function setCount(num) {
+	counter = num;
+}
+
+function incrCount() {
+	counter++;
+	if (counter == 1) {
+		startTime = new Date();
+		//makeGraph();		
+	}		
+	currTime = new Date();
+	//console.log(counter);
+}
+
+function getMin() {
+	var minutes = (currTime.getTime() - startTime.getTime()) / 60000;
+ 	return minutes;
 }
