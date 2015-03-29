@@ -49,7 +49,7 @@ app.controller('typeCtrl', ['$scope',
 			if (getCount() > 0) {
 				var percent = stringCorrect($scope.typed, currentQuote).length/getCount();
 				//console.log(percent);
-				return percent.toFixed(2) * 100;
+				return (percent.toFixed(2) * 100) + "%";
 			}
 			else
 				return getCount();			
