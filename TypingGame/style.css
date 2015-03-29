@@ -12,8 +12,22 @@
 	background: Black;
 }*/
 
+
+body {
+	padding-top: 100px;
+	font-family: 'Roboto', sans-serif;
+	background: #fefdfb;
+}
+
+.navbar {
+	background: #337AB7;
+	/*background: #3D3D3D;*/
+	color: #fefdfb;
+}
+
 span {
 	font-size: 24px;
+	text-align: center;
 }
 
 span.correct {
@@ -22,4 +36,8 @@ span.correct {
 
 span.incorrect {
 	color: red;
+}
+
+.panel > .panel-body + .list-group .list-group-item:first-child {
+  border-bottom: 1px solid #dddddd;
 }

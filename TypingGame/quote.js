@@ -1,4 +1,4 @@
-var app = angular.module('MADNight', ['ngSanitize', 'chartjs']);
+var app = angular.module('MADNight', ['ngSanitize']);
 
 app.factory('typed', [function() {
 	return '';
@@ -55,18 +55,6 @@ app.controller('typeCtrl', ['$scope',
 				return getCount();			
 		};
 
-		$scope.LPM = function() {
-			//console.log(getCount());
-			if (getCount() > 0) {
-				var letters = stringCorrect($scope.typed, currentQuote).length;
-				var minutes = getMin();
-				//console.log(letters + " " + minutes);
-				if (minutes == 0 || letters == 0) return 0 ;
-				return (letters/minutes).toFixed(0);
-			}
-			else return 0;
-		}
-
 		$scope.WPM = function() {
 			if (getCount() > 0) {
 				var words = stringCorrect($scope.typed, currentQuote).length/5;
@@ -85,12 +73,6 @@ app.controller('typeCtrl', ['$scope',
 					return 0;
 				else {
 					var errors = (stringIncorrect($scope.typed, currentQuote).length/minutes).toFixed(0);
-					console.log(errors);
-					console.log($scope.WPM());
-					dataArr.push($scope.WPM() - errors);
-					timeArr.push(minutes);
-					console.log("d " + dataArr);
-					console.log("t " + timeArr)
 					return ($scope.WPM() - errors);
 				}
 				
@@ -125,6 +107,7 @@ app.controller('typeCtrl', ['$scope',
 			currentQuote = $scope.randomQuote();
 			if (contains(visited, currentQuote))
 				$scope.nextQuote();
+			document.getElementById('text').focus();
 			$scope.highlightText(currentQuote);
 		}
 
@@ -143,6 +126,13 @@ app.controller('typeCtrl', ['$scope',
 				var incorrect = stringIncorrect($scope.typed, quote);
 				if (correct.length == quote.length) {
 					visited.push(currentQuote);
+					swal({   
+						title: "Good Job!",   
+						text: "Accuracy:\t" + $scope.accuracy() + "\n" + 
+							  "WPM:\t" + $scope.netWPM(),   
+						type: "success",   
+						confirmButtonText: "Cool" 
+					});
 					$scope.nextQuote();
 					return;
 				}
