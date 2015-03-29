@@ -79,22 +79,7 @@ app.controller('typeCtrl', ['$scope',
 			}
 			else
 				return 0 ;
-		}
-
-		$scope.lineChartData = {
-        	labels: [
-        		timeArr[0], 
-        		timeArr[1], 
-        		timeArr[2]
-      		],
-      		datasets: [
-        		{
-          			data: [0, 5, 10, 15, 20, 25]
-        		}
-      		]
-    	};
-    
-    	$scope.activeData = $scope.lineChartData;		
+		}	
 
 		$scope.nextQuote = function() {
 			//console.log("clicked");			
@@ -130,7 +115,7 @@ app.controller('typeCtrl', ['$scope',
 						title: "Good Job!",   
 						text: "Accuracy:\t" + $scope.accuracy() + "\n" + 
 							  "WPM:\t" + $scope.netWPM() + "\n" +
-							  "Time:\t" + getMin(),   
+							  "Time:\t" + getMinString(),   
 						type: "success",   
 						confirmButtonText: "Cool" 
 					});
@@ -217,6 +202,10 @@ function getMin() {
 }
 
 function getMinString() {
-	var min = getMin();
-	return ;
+	var time = getMin();
+	var min = Math.floor(time);
+	var sec = ((time % 1) * 60).toFixed(0);
+	if (sec.length == 1) 
+		sec = "0" + sec.toString();
+	return  min + ":" + sec;
 }
