@@ -129,7 +129,8 @@ app.controller('typeCtrl', ['$scope',
 					swal({   
 						title: "Good Job!",   
 						text: "Accuracy:\t" + $scope.accuracy() + "\n" + 
-							  "WPM:\t" + $scope.netWPM(),   
+							  "WPM:\t" + $scope.netWPM() + "\n" +
+							  "Time:\t" + getMin(),   
 						type: "success",   
 						confirmButtonText: "Cool" 
 					});
@@ -213,4 +214,9 @@ function incrCount() {
 function getMin() {
 	var minutes = (currTime.getTime() - startTime.getTime()) / 60000;
  	return minutes;
+}
+
+function getMinString() {
+	var min = getMin();
+	return ;
 }
