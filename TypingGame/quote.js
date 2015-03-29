@@ -52,7 +52,7 @@ app.controller('typeCtrl', ['$scope',
 				return (percent.toFixed(2) * 100) + "%";
 			}
 			else
-				return getCount();			
+				return getCount() + "%";			
 		};
 
 		$scope.WPM = function() {
